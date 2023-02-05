@@ -270,7 +270,7 @@ function repaint() {
   //image(bom_img,100,100,128,128);
   
   for(var ef of effects) {
-    var tmp = document.createElement('img');
+    /*var tmp = document.createElement('img');
     tmp.src = "assets/bom2.gif?"+String(new Date().getTime());
     //tmp.src = "assets/b1.png";
     tmp.style.position = "absolute";
@@ -278,7 +278,8 @@ function repaint() {
     tmp.height = "128";
     tmp.style.left = parseInt(ef[0]-64)+"px"
     tmp.style.top = parseInt(ef[1]-64)+"px"
-    effect_cv.appendChild(tmp);
+    effect_cv.appendChild(tmp);*/
+    effect_cv.insertAdjacentHTML('beforeend', '<img src="assets/bom2.gif?'+String(new Date().getTime())+'" width="128" height="128" style="position: absolute; left: '+parseInt(ef[0]-64)+'px; top: '+parseInt(ef[1]-64)+'px;">');
     effects.shift();
   }
   for(var e of enemies) {
