@@ -282,7 +282,7 @@ function settings() {
 
 async function summon_enemy() {
   while(true) {
-    var random = Math.floor( Math.random() * (4 + 1 - 0) ) + 0;
+    var random = Math.floor( Math.random() * (2 + 1 - 0) ) + 0;
     if(random == 0) {
       enemies.push([0,0,0]);
       enemies_status.push([0,0,0]);
