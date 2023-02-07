@@ -6,7 +6,7 @@ var pRange = [jet_size[0]/4,0,jet_size[0]/2,jet_size[1]]
 var bullets = []
 var bullet_img;
 var bullet_size= [12,12];
-var bullet_speed = 15
+var bullet_speed = 20
 var bullet_active = false
 var bullet_cooldown_count = 0
 var bom1_img;
@@ -128,6 +128,39 @@ async function draw() {
           enemies[e] = move_1(enemies[e]);
         }
       }
+    }else if(enemies_status[e][2] == 1) {
+      if(enemies[e][0] > width-200&&enemies[e][2] == 180) {
+        enemies[e] = move_0(enemies[e]);
+        break
+      }
+      
+      if(enemies[e][2] >= -270&&enemies[e][2] <= -240||enemies_status[e][0] == 1) {
+        if(enemies_status[e][1] != -270&&enemies_status[e][1] != -1) {
+          enemies_status[e][1] = Math.floor( Math.random() * (enemies[e][2] + 1 + 270) ) + -270;
+        }
+        if(enemies_status[e][1] == -270) {
+          enemies_status[e][0] = 1
+          enemies_status[e][1] = -1;
+        }else if(enemies_status[e][0] == 1){
+          if(enemies[e][2] < -270) {
+            enemies[e] = move_1(enemies[e]);
+          }else {
+            enemies_status[e][0] = 2
+          }
+        }else {
+          enemies[e] = move_2(enemies[e]);
+        }
+      }else {
+        if(enemies_status[e][0] == 2) {
+          enemies[e] = move_0(enemies[e]);
+          if(enemies[e][0] > height+jet_size[1]) {
+            enemies.splice( e, 1 );
+          }
+        }else {
+          enemies[e] = move_2(enemies[e]);
+        }
+      }
+      console.log(enemies[e][2]);
     }
   }
   e = 0;
@@ -238,13 +271,26 @@ function hit_check(x1_s,y1_s,x1_e,y1_e,x2_s,y2_s,x2_e,y2_e) {
 
 function settings() {
   pPos = [width/2,height-jet_size[1]];
-  enemies.push([0,0,0])
-  enemies_status.push([0,0,0]);
-  enemies.push([-jet_size[0]*2,0,0])
-  enemies_status.push([0,0,0]);
-  enemies.push([-jet_size[0]*3,0,0])
-  enemies_status.push([0,0,0]);
+  //enemies.push([width,0,180]);
+  //enemies_status.push([0,0,1]);
+  //enemies.push([0,0,0]);
+  //enemies_status.push([0,0,0]);
+  setTimeout(summon_enemy,1);
   repaint();
+}
+
+async function summon_enemy() {
+  while(true) {
+    var random = Math.floor( Math.random() * (4 + 1 - 0) ) + 0;
+    if(random == 0) {
+      enemies.push([0,0,0]);
+      enemies_status.push([0,0,0]);
+    }else if(random == 1) {
+      enemies.push([width,0,180]);
+      enemies_status.push([0,0,1]);
+    }
+    await sleep(1.2);
+  }
 }
 
 function plusN(i,p,max,min) {
