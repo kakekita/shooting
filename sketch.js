@@ -290,7 +290,7 @@ async function summon_enemy() {
       enemies.push([width,0,180]);
       enemies_status.push([0,0,1]);
     }
-    await sleep(1.2);
+    await sleep(0.6);
   }
 }
 
