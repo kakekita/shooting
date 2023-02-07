@@ -123,6 +123,7 @@ async function draw() {
           enemies[e] = move_0(enemies[e]);
           if(enemies[e][0] > height+jet_size[1]) {
             enemies.splice( e, 1 );
+            enemies_status.splice(e,1);
           }
         }else {
           enemies[e] = move_1(enemies[e]);
@@ -155,12 +156,12 @@ async function draw() {
           enemies[e] = move_0(enemies[e]);
           if(enemies[e][0] > height+jet_size[1]) {
             enemies.splice( e, 1 );
+            enemies_status.splice(e,1);
           }
         }else {
           enemies[e] = move_2(enemies[e]);
         }
       }
-      console.log(enemies[e][2]);
     }
   }
   e = 0;
